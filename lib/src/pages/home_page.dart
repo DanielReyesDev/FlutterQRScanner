@@ -50,6 +50,11 @@ class _HomePageState extends State<HomePage> {
     print(futureString);
 
 
+    if (futureString != null)  {
+      print("We got information");
+    }
+
+
     
   }  
 
