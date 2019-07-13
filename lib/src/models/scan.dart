@@ -8,7 +8,13 @@ class Scan {
         this.id,
         this.type,
         this.value,
-    });
+    }){
+      if (type.contains("http")) {
+        this.type = "http";
+      } else {
+        this.type = "geo";
+      }
+    }
 
     factory Scan.fromJson(Map<String, dynamic> json) => new Scan(
         id: json["id"],
