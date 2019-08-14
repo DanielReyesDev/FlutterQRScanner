@@ -9,7 +9,7 @@ class Scan {
         this.type,
         this.value,
     }){
-      if (type.contains("http")) {
+      if (this.value.contains("http")) {
         this.type = "http";
       } else {
         this.type = "geo";

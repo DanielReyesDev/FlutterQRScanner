@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_qr_scanner/src/models/scan.dart';
 import 'package:flutter_qr_scanner/src/pages/addresses_page.dart';
 import 'package:flutter_qr_scanner/src/pages/maps_page.dart';
+import 'package:flutter_qr_scanner/src/providers/db_provider.dart';
 import 'package:qrcode_reader/qrcode_reader.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("QR Scanner"),
+        title: Text("QR Scan"),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.delete_forever),
@@ -37,21 +39,25 @@ class _HomePageState extends State<HomePage> {
   }
 
   _scanQR() async {
-    // https://www.google.com/
+    // 
     // geo:40.63049872475465,-74.26961317500002
 
-    String futureString = "";
-    try {
-      futureString = await new QRCodeReader().scan();
-    } catch(e) {
-      futureString = e.toString();
-    }
+    String futureString = "https://www.google.com/";
 
-    print(futureString);
+    // String futureString = "";
+    // try {
+    //   futureString = await new QRCodeReader().scan();
+    // } catch(e) {
+    //   futureString = e.toString();
+    // }
+
+    // print(futureString);
 
 
     if (futureString != null)  {
       print("We got information");
+      final scan = Scan(value: futureString);
+      DBProvider.db.newScan(scan);
     }
 
 
