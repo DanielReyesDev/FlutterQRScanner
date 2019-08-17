@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_qr_scanner/src/bloc/scans_bloc.dart';
 import 'package:flutter_qr_scanner/src/models/scan.dart';
 import 'package:flutter_qr_scanner/src/pages/addresses_page.dart';
 import 'package:flutter_qr_scanner/src/pages/maps_page.dart';
-import 'package:flutter_qr_scanner/src/providers/db_provider.dart';
 import 'package:qrcode_reader/qrcode_reader.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,6 +15,8 @@ class _HomePageState extends State<HomePage> {
 
   int currentIndex = 0;
 
+  final scansBloc = new ScansBloc();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +25,7 @@ class _HomePageState extends State<HomePage> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.delete_forever),
-            onPressed: (){},
+            onPressed: () => scansBloc.deleteAll(),
           )
         ],
       ),
@@ -57,7 +59,7 @@ class _HomePageState extends State<HomePage> {
     if (futureString != null)  {
       print("We got information");
       final scan = Scan(value: futureString);
-      DBProvider.db.newScan(scan);
+      scansBloc.addScan(scan);
     }
 
 
