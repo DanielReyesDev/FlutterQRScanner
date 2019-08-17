@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_qr_scanner/src/bloc/scans_bloc.dart';
@@ -5,6 +7,7 @@ import 'package:flutter_qr_scanner/src/models/scan.dart';
 import 'package:flutter_qr_scanner/src/pages/addresses_page.dart';
 import 'package:flutter_qr_scanner/src/pages/maps_page.dart';
 import 'package:qrcode_reader/qrcode_reader.dart';
+import 'package:flutter_qr_scanner/src/utils/utils.dart' as utils;
 
 class HomePage extends StatefulWidget {
   @override
@@ -45,6 +48,8 @@ class _HomePageState extends State<HomePage> {
     // geo:40.63049872475465,-74.26961317500002
 
     String futureString = "https://www.google.com/";
+    String futureString2 = "geo:20.670355,-103.386798";
+    //20.670355,-103.386798
 
     // String futureString = "";
     // try {
@@ -57,14 +62,20 @@ class _HomePageState extends State<HomePage> {
 
 
     if (futureString != null)  {
-      print("We got information");
+
       final scan = Scan(value: futureString);
       scansBloc.addScan(scan);
+
+      final scan2 = Scan(value: futureString2);
+      scansBloc.addScan(scan2);
+
+      if (Platform.isIOS) {
+        Future.delayed(Duration(milliseconds: 750),(){
+          utils.openScan(context, scan);
+        });
+      }
     }
-
-
-    
-  }  
+  }
 
   Widget _callPage(int page) {
     switch(page){

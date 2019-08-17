@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_qr_scanner/src/bloc/scans_bloc.dart';
 import 'package:flutter_qr_scanner/src/models/scan.dart';
-
+import 'package:flutter_qr_scanner/src/utils/utils.dart' as utils;
 
 class MapsPage extends StatelessWidget {
 
@@ -9,6 +9,9 @@ class MapsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    scansBloc.getScans();
+
     return StreamBuilder<List<Scan>>(
       stream: scansBloc.scansStream,
       builder: (BuildContext context, AsyncSnapshot<List> snapshot){
@@ -33,6 +36,7 @@ class MapsPage extends StatelessWidget {
               title: Text(scans[i].value),
               subtitle: Text('ID: ${ scans[i].id }'),
               trailing: Icon(Icons.keyboard_arrow_right, color: Colors.grey,),
+              onTap: () => utils.openScan(context, scans[i]),
             )
           )
         );
