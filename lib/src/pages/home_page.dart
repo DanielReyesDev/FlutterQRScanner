@@ -44,31 +44,20 @@ class _HomePageState extends State<HomePage> {
   }
 
   _scanQR() async {
-    // 
-    // geo:40.63049872475465,-74.26961317500002
-
-    String futureString = "https://www.google.com/";
-    String futureString2 = "geo:20.670355,-103.386798";
-    //20.670355,-103.386798
-
-    // String futureString = "";
-    // try {
-    //   futureString = await new QRCodeReader().scan();
-    // } catch(e) {
-    //   futureString = e.toString();
-    // }
-
-    // print(futureString);
-
+    // String futureString = "https://www.google.com/";
+    // String futureString2 = "geo:20.670355,-103.386798";
+  
+    String futureString;
+    try {
+      futureString = await new QRCodeReader().scan();
+    } catch(e) {
+      futureString = e.toString();
+    }
 
     if (futureString != null)  {
 
       final scan = Scan(value: futureString);
       scansBloc.addScan(scan);
-
-      final scan2 = Scan(value: futureString2);
-      scansBloc.addScan(scan2);
-
       if (Platform.isIOS) {
         Future.delayed(Duration(milliseconds: 750),(){
           utils.openScan(context, scan);

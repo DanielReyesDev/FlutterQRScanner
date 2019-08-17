@@ -44,9 +44,7 @@ class _MapPageState extends State<MapPage> {
         } else if (mapType == "dark") {
           mapType = "streets";
         }
-        setState(() {
-          
-        });
+        setState((){});
       },
     );
   }
